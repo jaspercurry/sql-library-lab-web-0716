@@ -11,10 +11,21 @@ def select_value_and_count_of_most_prolific_species
 end
 
 def select_name_and_series_subgenres_of_authors
+  "SELECT authors.name, subgenres.name FROM authors 
+  JOIN series ON series.author_id = authors.id 
+  JOIN subgenres ON series.subgenre_id = subgenres.id"
 end
 
 def select_series_title_with_most_human_characters
+  "SELECT title FROM series JOIN characters ON characters.series_id = series.id
+  GROUP BY series.id HAVING species = 'human' ORDER BY COUNT(species) DESC LIMIT 1"
 end
 
 def select_character_names_and_number_of_books_they_are_in
+  "SELECT name, COUNT(character_books.book_id)
+  FROM characters
+  JOIN character_books
+  ON character_books.character_id = characters.id
+  GROUP BY characters.name
+  ORDER BY COUNT(character_books.book_id) DESC"
 end
